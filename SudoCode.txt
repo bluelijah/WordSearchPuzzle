@@ -1,0 +1,10 @@
+open the txt file
+print "Enter the word to search: " and have the user input their word to search for
+read from the txt file the size of the matrix, and the values of the matrix
+print out the matrix of size n which is line 1 of the txt file as we read from the file
+code the printPuzzle function
+    nested for loop, one iterating over the row, then when it reaches the end of the row, the external for loop increases the value of the column (recycle code from lab 4)
+run the searchPuzzle and return a bool if the word is fully found (success or failure)
+print (Printing the search path: )
+print out the matrix with the search path with values increasing for each index of the matrix in relation to each index of the word
+

@@ -55,6 +55,8 @@ int main(int argc, char **argv) {
 }
 
 void printPuzzle(char** arr) {
+
+    
 	// This function will print out the complete puzzle grid (arr). 
     // It must produce the output in the SAME format as the samples 
     // in the instructions.
