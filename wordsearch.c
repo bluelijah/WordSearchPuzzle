@@ -4,8 +4,9 @@
 
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
+// void upperCase(char* word);
 void printPuzzle(char** arr); // Declared a function for printing the puzzle
-void searchPuzzle(char** arr, char* word); // Declared a function to search foe a word in the puzzle
+void searchPuzzle(char** arr, char* word); // Declared a function to search for a word in the puzzle
 int bSize; // Is a global variable that stores the size of the puzzle grid (number of rows and columns)
 
 // Main function, DO NOT MODIFY 	
@@ -68,7 +69,7 @@ void printPuzzle(char** arr) {
         }
         printf("\n");
     }
-    printf("\n");
+    printf("\n"); // This function takes the global variable bsize so that we can print the letters from the txt's
 }
 
 void searchPuzzle(char** arr, char* word) {
@@ -79,3 +80,11 @@ void searchPuzzle(char** arr, char* word) {
     // Your implementation here...
 
 }
+
+// void upperCase(char* word){
+//     for(int i = 0; *(word + i) != '\0'; i++){
+//         if(*(word + i) >= 'a' && *(word + i) <= 'z'){
+//             *(word + i) = *(word + i) - 32;
+//         }
+//     }
+// }
