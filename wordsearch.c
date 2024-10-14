@@ -8,6 +8,7 @@
 void printPuzzle(char** arr); // Declared a function for printing the puzzle
 void searchPuzzle(char** arr, char* word); // Declared a function to search for a word in the puzzle
 int bSize; // Is a global variable that stores the size of the puzzle grid (number of rows and columns)
+void toLower(char* word);
 
 // Main function, DO NOT MODIFY 	
 int main(int argc, char **argv) { // We expect a command-line argument for the puzzle file name
@@ -47,6 +48,10 @@ int main(int argc, char **argv) { // We expect a command-line argument for the p
 
     printf("Enter the word to search: ");
     scanf("%s", word);
+
+    //To test the toLower word
+    //toLower(word);
+    //printf("Converted word: %s\n", word);
     
     // Print out original puzzle grid
     printf("\nPrinting puzzle before search:\n");
@@ -54,8 +59,13 @@ int main(int argc, char **argv) { // We expect a command-line argument for the p
     
     // Call searchPuzzle to the word in the puzzle
     searchPuzzle(block, word);
-    
     return 0;
+}
+
+void toLower(char* word){
+    for(char *p = word; *p; ++p){
+        *p = *p > 0x40 && *p < 0x5b ? *p | 0x60 : *p;
+    }
 }
 
 void printPuzzle(char** arr) {
@@ -78,7 +88,6 @@ void searchPuzzle(char** arr, char* word) {
     // as shown in the sample runs. If not found, it will print a 
     // different message as shown in the sample runs.
     // Your implementation here...
-
 }
 
 // void upperCase(char* word){
