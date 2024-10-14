@@ -87,10 +87,4 @@ void searchPuzzle(char** arr, char* word) {
     // as shown in the sample runs. If not found, it will print a 
     // different message as shown in the sample runs.
     // Your implementation here...
-
-    
-
-
-    
-        
 }
