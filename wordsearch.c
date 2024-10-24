@@ -29,15 +29,15 @@ int main(int argc, char **argv) { // We expect a command-line argument for the p
     fscanf(fptr, "%d\n", &bSize); // Reads the first integer from the text file
                                 // Where the value is stored into bsize
     
-    // Allocate space for the puzzle block and the word to be searched
+    // Alloc space for the puzzle block and the word to be searched
     char **block = (char**)malloc(bSize * sizeof(char*));
     char *word = (char*)malloc(20 * sizeof(char));
 
     // Read puzzle block into 2D arrays
-    // The outer loop iterates through the rows, allocating memory for each row
+    // The outer loop iters through the rows, allocating memory for each row
     // The inner loop reads characters from the puzzle file, one by one and stores them in the grid
     for(i = 0; i < bSize; i++) {
-        *(block + i) = (char*)malloc(bSize * sizeof(char)); // Allocates space for each row in the puzzle grid
+        *(block + i) = (char*)malloc(bSize * sizeof(char)); // Allocs space for each row in the puzzle grid
         for (j = 0; j < bSize - 1; ++j) {
             fscanf(fptr, "%c ", *(block + i) + j);            
         }
@@ -83,6 +83,32 @@ void printPuzzle(char** arr) {
     printf("\n");
 }
 
+typedef struct {
+    int row;
+    int col;
+}Index;
+
+int firstLetter(char** arr, char* word, Index** locations){
+    char firstLetter = word[0];
+    int count = 0;
+    int maxOccurrences = bSize * bSize;
+    *locations = (Index*)malloc(maxOccurrences * sizeof(Index)); //allocs memory for the puzzle
+
+    for(int i = 0; i < bSize; i++){
+        for(int j = 0; j < bSize; j++){
+            if (*(*(arr + i) + j) == firstLetter) {
+                //store found Index
+                (*locations)[count].row = i;
+                (*locations)[count].col = j;
+                count++;
+            }
+        }
+    }
+
+    *locations = (Index*)realloc(*locations, count * sizeof(Index));
+    return count; //return number of occurrences found
+}
+
 void searchPuzzle(char** arr, char* word) {
     // This function checks if arr contains the search word. If the 
     // word appears in arr, it will print out a message and the path 
@@ -91,13 +117,26 @@ void searchPuzzle(char** arr, char* word) {
     // Your implementation here...
 
 
-    //a for loop that iterates through the whole matrix, and stores the locations of every letter that is equal to the first letter of the search word
+    //a for loop that iters through the whole matrix, and stores the locations of every letter that is equal to the first letter of the search word
     //8 functions, one that goes in each direction
     //if one of those functions finds the second letter of the search word
-    //we update the search letter, (3rd letter)
+    //we upd the search letter, (3rd letter)
     //make an array [2][2]
     //check equality of every letter within i-1, i+1, j-1, j+1, with the second letter of the word
     // [2][2], [2][3], [3][4]
+    toUpper(word);
+    Index* locations; //locations of first letter
+    int count = firstLetter(arr, word, &locations); //get locations of first letter if first letter present in puzzle
 
+    if (count == 0) {
+        printf("The first letter '%c' of the word '%s' was not found in the puzzle.\n", word[0], word);
+    } else {
+        printf("The first letter '%c' of the word '%s' was found at the following locations:\n", word[0], word);
+        for (int i = 0; i < count; i++) {
+            printf("Found at (%d, %d)\n", locations[i].row, locations[i].col);
+        }
+    }
 
+    free(locations);
 }
+
