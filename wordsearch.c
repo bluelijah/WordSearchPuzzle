@@ -89,4 +89,15 @@ void searchPuzzle(char** arr, char* word) {
     // as shown in the sample runs. If not found, it will print a 
     // different message as shown in the sample runs.
     // Your implementation here...
+
+
+    //a for loop that iterates through the whole matrix, and stores the locations of every letter that is equal to the first letter of the search word
+    //8 functions, one that goes in each direction
+    //if one of those functions finds the second letter of the search word
+    //we update the search letter, (3rd letter)
+    //make an array [2][2]
+    //check equality of every letter within i-1, i+1, j-1, j+1, with the second letter of the word
+    // [2][2], [2][3], [3][4]
+
+
 }
