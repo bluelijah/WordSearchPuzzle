@@ -93,7 +93,6 @@ int searchMatrix(char** arr, char* word, int i, int j, int index, int bSize) { /
     // Check if the current grid character mathes the current word character 
     if (*(*(arr + i) + j) == *(word + index)) {
         char temp = *(*(arr + i) + j); // temporarliy mark the position as visted 
-        *(*(arr + i) + j) = '*'; // Mark the cell as visited with the *
 
         // Searching in all eight directions
         int result = searchMatrix(arr, word, i - 1, j, index + 1, bSize) ||  // Up
@@ -105,7 +104,6 @@ int searchMatrix(char** arr, char* word, int i, int j, int index, int bSize) { /
                      searchMatrix(arr, word, i + 1, j - 1, index + 1, bSize) ||  // down left diagonal
                      searchMatrix(arr, word, i + 1, j + 1, index + 1, bSize);    // down right diagonal
         
-        *(*(arr + i) + j) = temp; // Restore original character (backtracking) back to its char state
         // Return 1 if the word is found, 0 otherwise after completing the recursive search
         return result;
     }
