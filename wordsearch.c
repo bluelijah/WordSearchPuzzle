@@ -11,7 +11,6 @@ void toUpper(char* word);
 int searchMatrix(char** arr, char*word, int i, int j, int index, int bSize);
 int findFirstLetter(char** arr, char* word);
 
-
 // Main function, DO NOT MODIFY 	
 int main(int argc, char **argv) { // We expect a command-line argument for the puzzle file name
     if (argc != 2) { // It checks the command line if there is 2 arguments
@@ -50,7 +49,11 @@ int main(int argc, char **argv) { // We expect a command-line argument for the p
 
     printf("Enter the word to search: ");
     scanf("%s", word);
-    
+  
+    //To test the toUpper word
+    //toUpper(word);
+    //printf("Converted word: %s\n", word);
+  
     // Print out original puzzle grid
     printf("\nPrinting puzzle before search:\n");
     printPuzzle(block);
@@ -149,12 +152,24 @@ void searchPuzzle(char** arr, char* word) {
     //make an array [2][2]
     //check equality of every letter within i-1, i+1, j-1, j+1, with the second letter of the word
     // [2][2], [2][3], [3][4]
+  
     toUpper(word);
+  
+    Index* locations; //locations of first letter
+    int count = firstLetter(arr, word, &locations); //get locations of first letter if first letter present in puzzle
+
+    if (count == 0) {
+        printf("The first letter '%c' of the word '%s' was not found in the puzzle.\n", word[0], word);
+    } else {
+        printf("The first letter '%c' of the word '%s' was found at the following locations:\n", word[0], word);
+        for (int i = 0; i < count; i++) {
+            printf("Found at (%d, %d)\n", locations[i].row, locations[i].col);
+        }
+    }
 
     if (findFirstLetter(arr, word)) {
         printf("Word found!");
     } else {
         printf("Word not found!\n");
     }
-
 }
