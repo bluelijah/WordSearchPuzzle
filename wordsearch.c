@@ -117,7 +117,7 @@ void searchPuzzle(char** arr, char* word) {
     // Your implementation here...
 
 
-    //a for loop that iters through the whole matrix, and stores the locations of every letter that is equal to the first letter of the search word
+    //a for loop that iters through the whole matrix, and stores the locations of every letter that is equal to the first letter of the search word CHECKMARK
     //8 functions, one that goes in each direction
     //if one of those functions finds the second letter of the search word
     //we upd the search letter, (3rd letter)
@@ -139,4 +139,3 @@ void searchPuzzle(char** arr, char* word) {
 
     free(locations);
 }
-
