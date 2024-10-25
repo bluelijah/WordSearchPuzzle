@@ -154,18 +154,6 @@ void searchPuzzle(char** arr, char* word) {
     // [2][2], [2][3], [3][4]
   
     toUpper(word);
-  
-    Index* locations; //locations of first letter
-    int count = firstLetter(arr, word, &locations); //get locations of first letter if first letter present in puzzle
-
-    if (count == 0) {
-        printf("The first letter '%c' of the word '%s' was not found in the puzzle.\n", word[0], word);
-    } else {
-        printf("The first letter '%c' of the word '%s' was found at the following locations:\n", word[0], word);
-        for (int i = 0; i < count; i++) {
-            printf("Found at (%d, %d)\n", locations[i].row, locations[i].col);
-        }
-    }
 
     if (findFirstLetter(arr, word)) {
         printf("Word found!");
