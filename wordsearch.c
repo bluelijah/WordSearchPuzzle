@@ -93,10 +93,8 @@ int searchMatrix(char** arr, char* word, int i, int j, int index, int bSize) { /
     if (i < 0 || j < 0 || i >= bSize || j >= bSize) {
         return 0; // Out of bounds in the matrix
     }
-    // Check if the current grid character mathes the current word character 
+    // Check if the current grid character matches the current word character 
     if (*(*(arr + i) + j) == *(word + index)) {
-        char temp = *(*(arr + i) + j); // temporarliy mark the position as visted 
-        *(*(arr + i) + j) = '*'; // Mark the cell as visited with the *
 
         // Searching in all eight directions
         int result = searchMatrix(arr, word, i - 1, j, index + 1, bSize) ||  // Up
@@ -108,7 +106,6 @@ int searchMatrix(char** arr, char* word, int i, int j, int index, int bSize) { /
                      searchMatrix(arr, word, i + 1, j - 1, index + 1, bSize) ||  // down left diagonal
                      searchMatrix(arr, word, i + 1, j + 1, index + 1, bSize);    // down right diagonal
         
-        *(*(arr + i) + j) = temp; // Restore original character (backtracking) back to its char state
         // Return 1 if the word is found, 0 otherwise after completing the recursive search
         return result;
     }
@@ -146,12 +143,12 @@ void searchPuzzle(char** arr, char* word) {
 
 
     //a for loop that iters through the whole matrix, and stores the locations of every letter that is equal to the first letter of the search word CHECKMARK
-    //8 functions, one that goes in each direction
-    //if one of those functions finds the second letter of the search word
-    //we upd the search letter, (3rd letter)
-    //make an array [2][2]
-    //check equality of every letter within i-1, i+1, j-1, j+1, with the second letter of the word
-    // [2][2], [2][3], [3][4]
+    //8 functions, one that goes in each direction CHECKMARK
+    //if one of those functions finds the second letter of the search word CHECKMARK
+    //we upd the search letter, (3rd letter) CHECKMARK
+    //make an array [2][2] CHECKMARK
+    //check equality of every letter within i-1, i+1, j-1, j+1, with the second letter of the word CHECKMARK
+    // [2][2], [2][3], [3][4] CHECKMARK
   
     toUpper(word);
   
