@@ -100,10 +100,10 @@ int searchMatrix(char** arr, char* word, int i, int j, int index, int bSize) { /
                      searchMatrix(arr, word, i + 1, j, index + 1, bSize) ||  // Down
                      searchMatrix(arr, word, i, j - 1, index + 1, bSize) ||  // Left
                      searchMatrix(arr, word, i, j + 1, index + 1, bSize) ||  // Right
-                     searchMatrix(arr, word, i - 1, j - 1, index + 1, bSize) ||  // Top left diagonal
-                     searchMatrix(arr, word, i - 1, j + 1, index + 1, bSize) ||  // Top right diagonal
-                     searchMatrix(arr, word, i + 1, j - 1, index + 1, bSize) ||  // Bottom left diagonal
-                     searchMatrix(arr, word, i + 1, j + 1, index + 1, bSize);    // Bottom right diagonal
+                     searchMatrix(arr, word, i - 1, j - 1, index + 1, bSize) ||  // Up left diagonal
+                     searchMatrix(arr, word, i - 1, j + 1, index + 1, bSize) ||  // Up right diagonal
+                     searchMatrix(arr, word, i + 1, j - 1, index + 1, bSize) ||  // down left diagonal
+                     searchMatrix(arr, word, i + 1, j + 1, index + 1, bSize);    // down right diagonal
         
         *(*(arr + i) + j) = temp; // Restore original character (backtracking) back to its char state
         // Return 1 if the word is found, 0 otherwise after completing the recursive search
