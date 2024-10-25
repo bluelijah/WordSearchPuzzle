@@ -8,6 +8,8 @@ void printPuzzle(char** arr); // Declared a function for printing the puzzle
 void searchPuzzle(char** arr, char* word); // Declared a function to search foe a word in the puzzle
 int bSize; // Is a global variable that stores the size of the puzzle grid (number of rows and columns)
 void toUpper(char* word);
+int searchMatrix(char** arr, char*word, int i, int j, int index, int bSize);
+int findFirstLetter(char** arr, char* word);
 
 // Main function, DO NOT MODIFY 	
 int main(int argc, char **argv) { // We expect a command-line argument for the puzzle file name
@@ -47,11 +49,11 @@ int main(int argc, char **argv) { // We expect a command-line argument for the p
 
     printf("Enter the word to search: ");
     scanf("%s", word);
-
+  
     //To test the toUpper word
     //toUpper(word);
     //printf("Converted word: %s\n", word);
-    
+  
     // Print out original puzzle grid
     printf("\nPrinting puzzle before search:\n");
     printPuzzle(block);
@@ -70,18 +72,70 @@ void toUpper(char* word){
 }
 
 void printPuzzle(char** arr) {
-	// This function will print out the complete puzzle grid (arr). 
-    // It must produce the output in the SAME format as the samples 
-    // in the instructions.
-    // Your implementation here...
-    for(int i = 0; i < bSize; i++){
-        for(int j = 0; j < bSize; j++){
-            printf("%c ", *(*(arr + i) + j));
+    for (int i = 0; i < bSize; i++) {
+        for (int j = 0; j < bSize; j++) {
+            printf("%c ", *(*(arr + i) + j)); // Print each character in the puzzle grid
         }
-        printf("\n");
+        printf("\n"); // Newline after each row
     }
-    printf("\n");
+    printf("\n"); // Extra newline for formatting
 }
+
+
+int searchMatrix(char** arr, char* word, int i, int j, int index, int bSize) { //searches the matrix recursivly every direction for the word
+    // Take the word length to an int
+    int wordLength = strlen(word);
+    // If the index is equal to the word length, the word has been found
+    if (index == wordLength) {
+        return 1; // The word was found
+    }
+    // Check if the current positon (i , j) is out of bounds 
+    if (i < 0 || j < 0 || i >= bSize || j >= bSize) {
+        return 0; // Out of bounds in the matrix
+    }
+    // Check if the current grid character mathes the current word character 
+    if (*(*(arr + i) + j) == *(word + index)) {
+        char temp = *(*(arr + i) + j); // temporarliy mark the position as visted 
+        *(*(arr + i) + j) = '*'; // Mark the cell as visited with the *
+
+        // Searching in all eight directions
+        int result = searchMatrix(arr, word, i - 1, j, index + 1, bSize) ||  // Up
+                     searchMatrix(arr, word, i + 1, j, index + 1, bSize) ||  // Down
+                     searchMatrix(arr, word, i, j - 1, index + 1, bSize) ||  // Left
+                     searchMatrix(arr, word, i, j + 1, index + 1, bSize) ||  // Right
+                     searchMatrix(arr, word, i - 1, j - 1, index + 1, bSize) ||  // Up left diagonal
+                     searchMatrix(arr, word, i - 1, j + 1, index + 1, bSize) ||  // Up right diagonal
+                     searchMatrix(arr, word, i + 1, j - 1, index + 1, bSize) ||  // down left diagonal
+                     searchMatrix(arr, word, i + 1, j + 1, index + 1, bSize);    // down right diagonal
+        
+        *(*(arr + i) + j) = temp; // Restore original character (backtracking) back to its char state
+        // Return 1 if the word is found, 0 otherwise after completing the recursive search
+        return result;
+    }
+
+    return 0;
+}
+
+int findFirstLetter(char** arr, char* word) { // Find the first letter of the word in the grid then intiate search in all directions
+    int wordLength = strlen(word); // Get the length of the word 
+
+    if (wordLength > bSize) { // If the length is greater than the matrix return 0 because the word doesn't exist in the matrix
+        return 0;
+    }
+    // Traverse the entire matrix to find the first char
+    for (int i = 0; i < bSize; i++) {
+        for (int j = 0; j < bSize; j++) {
+            if (*(*(arr + i)+ j) == *word) { // Dereferencing the *word gives us the first char of the word and compare that to the current pos of the matrix char
+                if (searchMatrix(arr, word, i, j, 0, bSize)) { //Start the recursive search for the word at the current position of the char (i, j)
+                    return 1; // If the word is found
+                }
+            }
+        }
+    }
+
+    return 0; // word was not found
+}
+
 
 void searchPuzzle(char** arr, char* word) {
     // This function checks if arr contains the search word. If the 
@@ -98,6 +152,24 @@ void searchPuzzle(char** arr, char* word) {
     //make an array [2][2]
     //check equality of every letter within i-1, i+1, j-1, j+1, with the second letter of the word
     // [2][2], [2][3], [3][4]
+  
+    toUpper(word);
+  
+    Index* locations; //locations of first letter
+    int count = firstLetter(arr, word, &locations); //get locations of first letter if first letter present in puzzle
 
+    if (count == 0) {
+        printf("The first letter '%c' of the word '%s' was not found in the puzzle.\n", word[0], word);
+    } else {
+        printf("The first letter '%c' of the word '%s' was found at the following locations:\n", word[0], word);
+        for (int i = 0; i < count; i++) {
+            printf("Found at (%d, %d)\n", locations[i].row, locations[i].col);
+        }
+    }
 
+    if (findFirstLetter(arr, word)) {
+        printf("Word found!");
+    } else {
+        printf("Word not found!\n");
+    }
 }
