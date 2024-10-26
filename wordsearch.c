@@ -131,10 +131,6 @@ int searchMatrix(char** arr, char* word, int i, int j, int index, int bSize, int
 
 int findFirstLetter(char** arr, char* word, int** foundIndices) { // Find the first letter of the word in the grid then intiate search in all directions
     int wordLength = strlen(word); //get length of the word 
-
-    if (wordLength > bSize) { //if the length is greater than the matrix return 0 because the word doesn't exist in the matrix
-        return 0;
-    }
     // Traverse the entire matrix to find the first char
     for (int i = 0; i < bSize; i++) {
         for (int j = 0; j < bSize; j++) {
