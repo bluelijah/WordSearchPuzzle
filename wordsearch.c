@@ -119,11 +119,7 @@ int searchMatrix(char** arr, char* word, int i, int j, int index, int** track, i
 }
 
 int findFirstLetter(char** arr, char* word, int** track) { // Find the first letter of the word in the grid then intiate search in all directions
-    int wordLength = strlen(word); // Get the length of the word 
 
-    if (wordLength > bSize) { // If the length is greater than the matrix return 0 because the word doesn't exist in the matrix
-        return 0;
-    }
     // Traverse the entire matrix to find the first char
     for (int i = 0; i < bSize; i++) {
         for (int j = 0; j < bSize; j++) {
@@ -156,20 +152,20 @@ void searchPuzzle(char** arr, char* word) {
     // [2][2], [2][3], [3][4]
     toUpper(word);
 
-    int** track = (int**)malloc(bSize * sizeof(int*));
-    for(int i = 0; i < bSize; i++){
-        *(track + i) = (int*)malloc(bSize * sizeof(int));
-        for(int j = 0; j < bSize; j++){
-            *(*(track + i)+ j) = 0;
+    int** track = (int**)malloc(bSize * sizeof(int*)); // A 2d matrix intialized with zero values
+    for(int i = 0; i < bSize; i++){ // allocation
+        *(track + i) = (int*)malloc(bSize * sizeof(int)); 
+        for(int j = 0; j < bSize; j++){ 
+            *(*(track + i)+ j) = 0; // Intialize each cell in the matrix to zero
         }
     }
 
-
+    
     if (findFirstLetter(arr, word, track)) {
         printf("Word found!\n");
         printf("Printing the search path:\n");
 
-        for(int i = 0; i < bSize; i++){
+        for(int i = 0; i < bSize; i++){ //
             for(int j = 0; j < bSize; j++){
                 if( j == 0){
                     printf("%d ", *(*(track + i) + j));
