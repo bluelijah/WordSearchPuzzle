@@ -1,3 +1,4 @@
+// coded by ELI OLSON AND ANGEL VARGAS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -129,9 +130,9 @@ int searchMatrix(char** arr, char* word, int i, int j, int index, int bSize, int
 
 
 int findFirstLetter(char** arr, char* word, int** foundIndices) { // Find the first letter of the word in the grid then intiate search in all directions
-    int wordLength = strlen(word); // Get the length of the word 
+    int wordLength = strlen(word); //get length of the word 
 
-    if (wordLength > bSize) { // If the length is greater than the matrix return 0 because the word doesn't exist in the matrix
+    if (wordLength > bSize) { //if the length is greater than the matrix return 0 because the word doesn't exist in the matrix
         return 0;
     }
     // Traverse the entire matrix to find the first char
@@ -139,13 +140,13 @@ int findFirstLetter(char** arr, char* word, int** foundIndices) { // Find the fi
         for (int j = 0; j < bSize; j++) {
             if (*(*(arr + i)+ j) == *word) { // Dereferencing the *word gives us the first char of the word and compare that to the current pos of the matrix char
                 if (searchMatrix(arr, word, i, j, 0, bSize, foundIndices)) { //Start the recursive search for the word at the current position of the char (i, j)
-                    return 1; // If the word is found
+                    return 1; //if word is found
                 }
             }
         }
     }
 
-    return 0; // word was not found
+    return 0; //if word was not found
 }
 
 
@@ -171,17 +172,17 @@ void searchPuzzle(char** arr, char* word) {
 
     int** foundIndices = (int**)malloc(wordLength * sizeof(int*));
     for (int i = 0; i < wordLength; i++) {
-        foundIndices[i] = (int*)malloc(2 * sizeof(int)); // each entry stores (i, j)
+        foundIndices[i] = (int*)malloc(2 * sizeof(int)); //each entry stores (i, j)
     }
 
     if (findFirstLetter(arr, word, foundIndices)) {
         printf("Word found!\n");
         printf("Printing the search path:\n");
 
-        for (int k = 0; k < wordLength; k++) {
+        for (int k = 0; k < wordLength; k++) {  //accessing matrix using pointer arithmetic
             int row = foundIndices[k][0];
             int col = foundIndices[k][1];
-            int* currentCell = *(matrix + row) + col; // Accessing matrix using pointer arithmetic
+            int* currentCell = *(matrix + row) + col;
 
             if (*currentCell == 0) {
                 *currentCell = k + 1;
@@ -195,7 +196,7 @@ void searchPuzzle(char** arr, char* word) {
         for (int i = 0; i < bSize; i++) {
             for (int j = 0; j < bSize; j++) {
                 if(j == 0){
-                    printf("%d ", *(*(matrix + i) + j)); // Accessing matrix using pointer arithmetic
+                    printf("%d ", *(*(matrix + i) + j)); //accessing matrix using pointer arithmetic
                 } else {
                     printf("%5d ", *(*(matrix + i) + j));
                 }
@@ -207,3 +208,10 @@ void searchPuzzle(char** arr, char* word) {
         printf("Word not found!\n");
     }
 }
+
+
+//FOR EXTRA CREDIT
+//run the whole program until findFirstLetter reaches the last variable x[bSize] and y[bSize]
+//if findFirstLetter successfully finds another whole word, store it to another matrix
+//combine the two matrices
+//if first letter checker doesn't find another word, simply return the one matrix with the one word found

@@ -9,3 +9,10 @@ run the searchPuzzle and return a bool if the word is fully found (success or fa
 print (Printing the search path: )
 print out the matrix with the search path with values increasing for each index of the matrix in relation to each index of the word
 
+//a for loop that iters through the whole matrix, and stores the locations of every letter that is equal to the first letter of the search word CHECKMARK
+//8 functions, one that goes in each direction CHECKMARK
+//if one of those functions finds the second letter of the search word CHECKMARK
+//we upd the search letter, (3rd letter) CHECKMARK
+//make an array [2][2] CHECKMARK
+//check equality of every letter within i-1, i+1, j-1, j+1, with the second letter of the word CHECKMARK
+// [2][2], [2][3], [3][4] CHECKMARK
